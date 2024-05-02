@@ -1,6 +1,6 @@
 server:
-    port: 8081
+    port: 8080
 
 openai:
     api:
-        key: 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
+        key: sk-proj-WUpyzw4HX4QFuhI3dE2ST3BlbkFJGfd54tO9GWOMuBL9Nazz

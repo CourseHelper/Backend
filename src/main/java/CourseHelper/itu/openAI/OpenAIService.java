@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.HtmlUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -22,12 +23,14 @@ public class OpenAIService {
 
     public String makeOpenAIRequest(String prompt) {
         rateLimiter.acquire();
+
+        prompt = HtmlUtils.htmlEscape(prompt);
+
         String url = "https://api.openai.com/v1/engines/gpt-3.5-turbo-instruct/completions";
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
         headers.set("Authorization", "Bearer " + apiKey);
 
-        // Customize the request payload based on OpenAI API documentation
         String requestBody = "{\"prompt\":\"" + prompt + "\",\"max_tokens\":100}";
 
         ResponseEntity<String> response = restTemplate.exchange(
