@@ -24,11 +24,13 @@ public class JsController {
         }
 
         try {
-            String response = openAIService.makeOpenAIRequest("I have a javascript code that has been written according to the task, the css code, and the html code, and they are: " + prompt + " Now, you are an exam analyser and you must give me the answer only with these templates," +
-                                                                        " If my code fully meets the requirements and it's correct so you must tell me just:" +
+            String response = openAIService.makeOpenAIRequest("I have a javascript code that has been written according to the task, the css code, and the html code, and they are: " + prompt + " Now, you are an exam analyser and you must give me the answer only with these templates for code evaluation," +
+                                                                        " 1- If my code fully meets the requirements and it's correct so you must tell me just:" +
                                                                         " \"Your answer is correct!\"" +
-                                                                        " If my code does not meet the requirements for the task or it has mistakes in syntax so you must tell me just:" +
-                                                                        " \"You answer is incorrect, and the correct code must be ...\" and you must use only HTML character entity references instead of symbols.");
+                                                                        " 2- If my code does not meet the requirements (you have to be stubborn and normative with the task) for the task or it has mistakes in syntax so you must tell me and you have to mention this:" +
+                                                                        " \"You answer is incorrect, and the correct code must be ...\" and you must use only HTML character entity references instead of symbols (do not mention this in your response)." +
+                                                                        " Correct the javascript code according to the given instructions if the answer doesn't implement the task correctly. Write only the javascript part of the corrected code." +
+                                                                        " DO NOT FORGET TO FOLLOW THESE: {Your answer is correct! OR You answer is incorrect, ...}, corrected javascript code, no comments, no other sentences.");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
