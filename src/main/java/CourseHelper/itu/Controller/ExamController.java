@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/validate_html")
+@RequestMapping("/validate_exam")
 @RequiredArgsConstructor
-public class HtmlController {
+public class ExamController {
 
     private final OpenAIService openAIService;
 
@@ -23,17 +23,14 @@ public class HtmlController {
             // return ResponseEntity.badRequest().body("Prompt parameter is required");
         }
 
-        System.out.println("prompt = " + prompt);
-
         try {
-            String response = openAIService.makeOpenAIRequest("I have an html code that has been written according to the task, and they are: " + prompt + " Now, you are an exam analyser and you must give me the answer only with these templates," +
-                                                                        " If my code fully meets the requirements and it's correct so you must tell me just:" +
-                                                                        " \"Your answer is correct!\"" +
-                                                                        " If my code does not meet ALL the requirements for the task or it has mistakes in syntax (focus if there are missing closing tags) so you must tell me just:" +
-                                                                        " \"You answer is incorrect, and the correct code must be ...\" and you must use only HTML character entity references instead of symbols.");
+            String response = openAIService.makeOpenAIRequest("Grade the following code with an integer number according to the problem, maximum score, html part, css part, and javascript part. " + prompt +
+                                                                        " Now, you should give partial grade out of total score to the given code. You can be generous." +
+                                                                        " Write only an integer number without any comments.");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
         }
     }
+
 }

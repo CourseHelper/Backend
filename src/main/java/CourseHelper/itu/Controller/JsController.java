@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/validate_html")
+@RequestMapping("/validate_js")
 @RequiredArgsConstructor
-public class HtmlController {
+public class JsController {
 
     private final OpenAIService openAIService;
 
@@ -23,13 +23,11 @@ public class HtmlController {
             // return ResponseEntity.badRequest().body("Prompt parameter is required");
         }
 
-        System.out.println("prompt = " + prompt);
-
         try {
-            String response = openAIService.makeOpenAIRequest("I have an html code that has been written according to the task, and they are: " + prompt + " Now, you are an exam analyser and you must give me the answer only with these templates," +
+            String response = openAIService.makeOpenAIRequest("I have a javascript code that has been written according to the task, the css code, and the html code, and they are: " + prompt + " Now, you are an exam analyser and you must give me the answer only with these templates," +
                                                                         " If my code fully meets the requirements and it's correct so you must tell me just:" +
                                                                         " \"Your answer is correct!\"" +
-                                                                        " If my code does not meet ALL the requirements for the task or it has mistakes in syntax (focus if there are missing closing tags) so you must tell me just:" +
+                                                                        " If my code does not meet the requirements for the task or it has mistakes in syntax so you must tell me just:" +
                                                                         " \"You answer is incorrect, and the correct code must be ...\" and you must use only HTML character entity references instead of symbols.");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
