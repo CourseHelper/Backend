@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/validate_question")
+@RequestMapping("/validate_help")
 @RequiredArgsConstructor
-public class QuestionController {
+public class HelpController {
 
     private final OpenAIService openAIService;
 
@@ -24,8 +24,9 @@ public class QuestionController {
         }
 
         try {
-            String response = openAIService.makeOpenAIRequest("Generate a general problem using the features: " + prompt +
-                                                                        " You should write a creative question for the user to answer using only given languages to test the capability of the user.");
+            String response = openAIService.makeOpenAIRequest("You are an assistant to give me a little hint to solve the problem, I will give you the html, css, javascript codes I tried. " + prompt +
+                                                                        " You should write me a small hint to solve the problem. Do not give the answer directly. Do not write the code yourself." +
+                                                                        " I am writing this code inside an online code editor, so I cannot debug and there is no console. Also, consider this as an online exam where I don't have to write everything from scratch. Keep that in mind.");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
