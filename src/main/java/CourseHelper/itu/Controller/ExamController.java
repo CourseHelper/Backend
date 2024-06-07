@@ -10,27 +10,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/validate_exam")
+@RequestMapping("/exam")
 @RequiredArgsConstructor
 public class ExamController {
 
     private final OpenAIService openAIService;
 
-    @GetMapping
-    public ResponseEntity<String> testOpenAI(@RequestParam(required = false) String prompt) {
-        if (prompt == null || prompt.trim().isEmpty()) {
-            return ResponseEntity.ok("empty");
-            // return ResponseEntity.badRequest().body("Prompt parameter is required");
-        }
-
-        try {
-            String response = openAIService.makeOpenAIRequest("Grade the following code with an integer number according to the problem, maximum score, html part, css part, and javascript part. " + prompt +
-                                                                        " Now, you should give partial grade out of total score to the given code. You can be generous." +
-                                                                        " Write only an integer number without any comments.");
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
-        }
+    @GetMapping("/grade")
+    public ResponseEntity<String> getExamGrading(@RequestParam(required = false) String prompt) {
+        String response = openAIService.getExamGrading(prompt);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping("/question")
+    public ResponseEntity<String> getExamQuestion(@RequestParam(required = false) String prompt) {
+        String response = openAIService.getExamQuestion(prompt);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/help")
+    public ResponseEntity<String> getExamHelp(@RequestParam(required = false) String prompt) {
+        String response = openAIService.getExamHelp(prompt);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 }
