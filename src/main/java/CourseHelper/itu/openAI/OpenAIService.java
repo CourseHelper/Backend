@@ -69,7 +69,23 @@ public class OpenAIService {
         );
         return makeOpenAIRequest(requestMessage);
     }
-    
+
+    public String validateJs(String prompt) {
+        validatePrompt(prompt);
+        String requestMessage = String.format(
+                "I have a javascript code that has been written according to the task, In the task the css code and the html code are given" +
+                        "Task, html, css, and js are: %s " +
+                        "Now, you are an exam analyser and you must give me the answer only with these templates for code evaluation," +
+                        "1- If my js code fully meets the requirements and it's correct so you must tell me just:" +
+                        "\"Your answer is correct!\"" +
+                        "2- If my js code does not meet the requirements (the answer should be answered according to the task) or if it has mistakes in syntax so you must tell me and you have to mention this:" +
+                        "\"You answer is incorrect, and the correct code must be ...\" " +
+                        "Correct only the javascript code according to the given instructions if the answer doesn't implement the task correctly. Write only the javascript part of the corrected code." +
+                        "In your response DO NOT FORGET TO FOLLOW THESE: {Your answer is correct! OR You answer is incorrect, ...}, corrected javascript code, no comments, no other sentences.",
+                prompt
+        );
+        return makeOpenAIRequest(requestMessage);
+    }
 
     private String makeOpenAIRequest(String prompt) {
         try {
