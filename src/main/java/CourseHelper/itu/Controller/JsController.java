@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/validate_js")
+@RequestMapping("/js")
 @RequiredArgsConstructor
 public class JsController {
 

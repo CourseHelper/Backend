@@ -30,10 +30,16 @@ public class OpenAIService {
     public String getExamQuestion(String prompt) {
         validatePrompt(prompt);
         String requestMessage = "Generate a general problem using the features: " + prompt +
-                " You should write a creative question for the user to answer using only given languages to test the capability of the user.";
+                " You should write a creative and different questions for the user to answer using only given languages to test the capability of the user.";
         return makeOpenAIRequest(requestMessage);
     }
-
+//    public List<String> generateQuestions() {
+//        String prompt = "Generate 4 unique and challenging coding problems related to HTML, CSS, and JavaScript.";
+//        String response = makeOpenAIRequest(prompt);
+//        // Extract the 4 questions from the response
+//        String[] questions = response.split("\n");
+//        return Arrays.asList(questions);
+//    }
     public String getExamHelp(String prompt) {
         validatePrompt(prompt);
         String requestMessage = "You are an assistant to give me a little hint to solve the problem, I will give you the html, css, javascript codes I tried. " + prompt +
@@ -45,11 +51,11 @@ public class OpenAIService {
     public String validateHtml(String prompt) {
         validatePrompt(prompt);
         String requestMessage = String.format(
-                "I have an html code that has been written according to the task, these are the task and the html code: %s " +
-                        "Now, you are an exam analyser and you must check the given html code and  give me the answer only with these templates, " +
-                        "If my html code fully meets the requirements and it's correct so you must tell me just: " +
+                "there is a task and the answer: %s The answer has been written according to the task" +
+                        "Now, you are an exam analyser and you must check the given answer and it must be html code and  give me the answer only with these templates, " +
+                        "If the answer is html code and fully meets the requirements and it's correct so you must tell me just: " +
                         "\"Your answer is correct!\" " +
-                        "If my html code does not meet ALL the requirements for the task or if it has mistakes in syntax (focus if there are missing closing tags) so you must tell me just: " +
+                        "If the answer does not meet ALL the requirements for the task or if it has mistakes in syntax (focus if there are missing closing tags) so you must tell me just: " +
                         "\"Your answer is incorrect, and the correct code must be ...\" " +
                         "In your response if there's corrected code, you must follow the following format in your response &lt;h1&gt;xxxxx&lt;/h1&gt; and change h1 according to the given task",
                 prompt
