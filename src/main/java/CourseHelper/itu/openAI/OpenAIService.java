@@ -45,13 +45,13 @@ public class OpenAIService {
     public String validateHtml(String prompt) {
         validatePrompt(prompt);
         String requestMessage = String.format(
-                "I have an html code that has been written according to the task, and they are: %s " +
-                        "Now, you are an exam analyser and you must give me the answer only with these templates, " +
-                        "If my code fully meets the requirements and it's correct so you must tell me just: " +
+                "I have an html code that has been written according to the task, these are the task and the html code: %s " +
+                        "Now, you are an exam analyser and you must check the given html code and  give me the answer only with these templates, " +
+                        "If my html code fully meets the requirements and it's correct so you must tell me just: " +
                         "\"Your answer is correct!\" " +
-                        "If my code does not meet ALL the requirements for the task or it has mistakes in syntax (focus if there are missing closing tags) so you must tell me just: " +
+                        "If my html code does not meet ALL the requirements for the task or if it has mistakes in syntax (focus if there are missing closing tags) so you must tell me just: " +
                         "\"Your answer is incorrect, and the correct code must be ...\" " +
-                        "and you must use only HTML character entity references instead of symbols.",
+                        "In your response if there's corrected code, you must follow the following format in your response &lt;h1&gt;xxxxx&lt;/h1&gt; and change h1 according to the given task",
                 prompt
         );
         return makeOpenAIRequest(requestMessage);
