@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helper-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helper-app
+  template:
+    metadata:
+      labels:
+        app: helper-app
+    spec:
+      containers:
+        - name: helper-app
+          image: 339712833233.dkr.ecr.us-east-1.amazonaws.com/helper-app:latest
+          ports:
+            - containerPort: 8080
