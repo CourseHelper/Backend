@@ -22,7 +22,7 @@ public class OpenAIService {
     public String getExamGrading(String prompt) {
         validatePrompt(prompt);
         String requestMessage = "Grade the following code with an integer number according to the problem, maximum score, html part, css part, and javascript part. " + prompt +
-                " Now, you should give partial grade out of total score to the given code. You can be generous." +
+                " Now, you should give partial grade out of total score to the given code." +
                 " Write only an integer number without any comments.";
         return makeOpenAIRequest(requestMessage);
     }
