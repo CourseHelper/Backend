@@ -29,8 +29,9 @@ public class OpenAIService {
 
     public String getExamQuestion(String prompt) {
         validatePrompt(prompt);
-        String requestMessage = "Generate a general problem using the features: " + prompt +
-                " You should write a creative and different questions for the user to answer using only given languages to test the capability of the user.";
+        String requestMessage = "Generate general problems using the features: " + prompt +
+                " You should write creative and different problems for the user to answer using only given languages to test the capability of the user." +
+                " Separate the problems only with @ sign.";
         return makeOpenAIRequest(requestMessage);
     }
 //    public List<String> generateQuestions() {
