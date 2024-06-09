@@ -22,6 +22,12 @@ public class ExamController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping("/review")
+    public ResponseEntity<String> getExamReview(@RequestParam(required = false) String prompt) {
+        String response = openAIService.getExamReview(prompt);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @GetMapping("/question")
     public ResponseEntity<String> getExamQuestion(@RequestParam(required = false) String prompt) {
         String response = openAIService.getExamQuestion(prompt);

@@ -22,8 +22,15 @@ public class OpenAIService {
     public String getExamGrading(String prompt) {
         validatePrompt(prompt);
         String requestMessage = "Grade the following code with an integer number according to the problem, maximum score, html part, css part, and javascript part. " + prompt +
-                " Now, you should give partial grade out of total score to the given code." +
-                " Write only an integer number without any comments.";
+                " If the problem does not need an html code and the user correctly completed other parts, you can give full marks; and same for other cases. Give zero points if the answer is empty or incorrect, give maximum score if the answer is fully correct." +
+                " Write only an integer number without any comments. Be extremely stingy when grading the code, check if the code meets what the problem wants." +
+                " If the answer is correct, give maximum score.";
+        return makeOpenAIRequest(requestMessage);
+    }
+
+    public String getExamReview(String prompt) {
+        validatePrompt(prompt);
+        String requestMessage = "Review and correct the following code according to the problem: " + prompt;
         return makeOpenAIRequest(requestMessage);
     }
 
@@ -121,7 +128,7 @@ public class OpenAIService {
 
     private void validatePrompt(String prompt) {
         if (prompt == null || prompt.trim().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Prompt is empty");
+            // throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Prompt is empty");
         }
     }
 }
