@@ -35,3 +35,12 @@ After successfully launching Course Helper, and the server is up and running, yo
 
 Use swagger to explore the available endpoints and try them out. Find it at:
 http://localhost:8080/swagger-ui/index.html
+
+## After Deployment
+
+- You can access the backend side of kanver app by this link:
+  http://a5b080a013c0447bfabb7043184ffa04-935611218.us-east-1.elb.amazonaws.com
+
+OR
+
+- Via Swagger : http://a5b080a013c0447bfabb7043184ffa04-935611218.us-east-1.elb.amazonaws.com/swagger-ui/index.html
